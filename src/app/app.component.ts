@@ -1,5 +1,9 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
+import { CmsClientService, unwrapCmsData } from '@aero-cms/angular-sdk';
+import { mergeComponentContent } from '../lib/cms-content';
+import { siteSeoSchema } from '../lib/schemas';
 import { AppHeaderComponent } from './components/app-header.component';
 import { AppFooterComponent } from './components/app-footer.component';
 import { PreviewBannerComponent } from './components/preview-banner.component';
@@ -24,10 +28,21 @@ import { CmsPreviewService } from './services/cms-preview.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   private previewService = inject(CmsPreviewService);
+  private cms = inject(CmsClientService);
+  private title = inject(Title);
+  private meta = inject(Meta);
   preview = this.previewService;
 
-  ngOnInit() {
+  async ngOnInit() {
     this.previewService.init();
+    try {
+      const seo = mergeComponentContent(
+        siteSeoSchema,
+        await unwrapCmsData(await this.cms.getComponentContent(siteSeoSchema.key)),
+      );
+      this.title.setTitle(seo['siteTitle']);
+      this.meta.updateTag({ name: 'description', content: seo['siteDescription'] });
+    } catch {}
   }
 
   ngOnDestroy() {

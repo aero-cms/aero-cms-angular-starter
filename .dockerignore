@@ -1,0 +1,11 @@
+node_modules
+dist
+.angular
+.git
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+public/sitemap.xml
+public/robots.txt
