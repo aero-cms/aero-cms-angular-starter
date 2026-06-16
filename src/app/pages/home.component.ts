@@ -6,6 +6,7 @@ import type { EtkinlikDto, HaberDto } from '@aero-cms/core';
 import { mergeComponentContent } from '../../lib/cms-content';
 import { eventsListSchema, heroSchema, newsListSchema } from '../../lib/schemas';
 import { CmsPreviewService } from '../services/cms-preview.service';
+import { LangService } from '../services/lang.service';
 
 @Component({
   selector: 'app-home',
@@ -105,6 +106,7 @@ import { CmsPreviewService } from '../services/cms-preview.service';
 })
 export class HomeComponent implements OnInit {
   private cms = inject(CmsClientService);
+  private lang = inject(LangService);
   readonly preview = inject(CmsPreviewService);
 
   haberler: HaberDto[] = [];
@@ -129,7 +131,9 @@ export class HomeComponent implements OnInit {
       this.heroServer.set(
         mergeComponentContent(
           heroSchema,
-          await unwrapCmsData(await this.cms.getComponentContent(heroSchema.key)),
+          await unwrapCmsData(
+            await this.cms.getComponentContent(heroSchema.key, this.lang.options()),
+          ),
         ),
       );
     } catch {}
@@ -137,7 +141,9 @@ export class HomeComponent implements OnInit {
       this.newsListServer.set(
         mergeComponentContent(
           newsListSchema,
-          await unwrapCmsData(await this.cms.getComponentContent(newsListSchema.key)),
+          await unwrapCmsData(
+            await this.cms.getComponentContent(newsListSchema.key, this.lang.options()),
+          ),
         ),
       );
     } catch {}
@@ -145,15 +151,21 @@ export class HomeComponent implements OnInit {
       this.eventsListServer.set(
         mergeComponentContent(
           eventsListSchema,
-          await unwrapCmsData(await this.cms.getComponentContent(eventsListSchema.key)),
+          await unwrapCmsData(
+            await this.cms.getComponentContent(eventsListSchema.key, this.lang.options()),
+          ),
         ),
       );
     } catch {}
     try {
-      this.haberler = await unwrapCmsData(await this.cms.getNews({ pageSize: 6 }));
+      this.haberler = await unwrapCmsData(
+        await this.cms.getNews({ pageSize: 6, ...this.lang.options() }),
+      );
     } catch {}
     try {
-      this.etkinlikler = await unwrapCmsData(await this.cms.getEvents({ pageSize: 4 }));
+      this.etkinlikler = await unwrapCmsData(
+        await this.cms.getEvents({ pageSize: 4, ...this.lang.options() }),
+      );
     } catch {}
   }
 }

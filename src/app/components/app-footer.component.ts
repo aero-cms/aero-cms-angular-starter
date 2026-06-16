@@ -5,6 +5,7 @@ import type { MenuItemDto } from '@aero-cms/core';
 import { mergeComponentContent } from '../../lib/cms-content';
 import { siteFooterSchema } from '../../lib/schemas';
 import { CmsPreviewService } from '../services/cms-preview.service';
+import { LangService } from '../services/lang.service';
 
 @Component({
   selector: 'app-footer',
@@ -68,6 +69,7 @@ import { CmsPreviewService } from '../services/cms-preview.service';
 })
 export class AppFooterComponent implements OnInit {
   private cms = inject(CmsClientService);
+  private lang = inject(LangService);
   readonly preview = inject(CmsPreviewService);
 
   menuItems: MenuItemDto[] = [];
@@ -89,7 +91,9 @@ export class AppFooterComponent implements OnInit {
       this.footerServer.set(
         mergeComponentContent(
           siteFooterSchema,
-          await unwrapCmsData(await this.cms.getComponentContent(siteFooterSchema.key)),
+          await unwrapCmsData(
+            await this.cms.getComponentContent(siteFooterSchema.key, this.lang.options()),
+          ),
         ),
       );
     } catch {}

@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CmsClientService, unwrapCmsData } from '@aero-cms/angular-sdk';
+import { LangService } from '../services/lang.service';
 import type { HaberDto } from '@aero-cms/core';
 
 @Component({
@@ -35,12 +36,15 @@ import type { HaberDto } from '@aero-cms/core';
 })
 export class NewsListComponent implements OnInit {
   private cms = inject(CmsClientService);
+  private lang = inject(LangService);
   haberler: HaberDto[] = [];
   loadError = false;
 
   async ngOnInit() {
     try {
-      this.haberler = await unwrapCmsData(await this.cms.getNews({ pageSize: 12 }));
+      this.haberler = await unwrapCmsData(
+        await this.cms.getNews({ pageSize: 12, ...this.lang.options() }),
+      );
     } catch {
       this.loadError = true;
     }

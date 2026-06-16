@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CmsClientService, unwrapCmsData } from '@aero-cms/angular-sdk';
+import { LangService } from '../services/lang.service';
 import type { PageDto } from '@aero-cms/core';
 
 @Component({
@@ -20,6 +21,7 @@ import type { PageDto } from '@aero-cms/core';
 })
 export class CmsPageComponent implements OnInit {
   private cms = inject(CmsClientService);
+  private lang = inject(LangService);
   private route = inject(ActivatedRoute);
   page: PageDto | null = null;
 
@@ -31,7 +33,7 @@ export class CmsPageComponent implements OnInit {
     const slug = this.route.snapshot.paramMap.get('slug');
     if (!slug) return;
     try {
-      this.page = await unwrapCmsData(await this.cms.getPage(slug));
+      this.page = await unwrapCmsData(await this.cms.getPage(slug, this.lang.options()));
     } catch {
       this.page = null;
     }

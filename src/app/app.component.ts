@@ -8,6 +8,7 @@ import { AppHeaderComponent } from './components/app-header.component';
 import { AppFooterComponent } from './components/app-footer.component';
 import { PreviewBannerComponent } from './components/preview-banner.component';
 import { CmsPreviewService } from './services/cms-preview.service';
+import { LangService } from './services/lang.service';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ import { CmsPreviewService } from './services/cms-preview.service';
 export class AppComponent implements OnInit, OnDestroy {
   private previewService = inject(CmsPreviewService);
   private cms = inject(CmsClientService);
+  private lang = inject(LangService);
   private title = inject(Title);
   private meta = inject(Meta);
   preview = this.previewService;
@@ -38,7 +40,9 @@ export class AppComponent implements OnInit, OnDestroy {
     try {
       const seo = mergeComponentContent(
         siteSeoSchema,
-        await unwrapCmsData(await this.cms.getComponentContent(siteSeoSchema.key)),
+        await unwrapCmsData(
+          await this.cms.getComponentContent(siteSeoSchema.key, this.lang.options()),
+        ),
       );
       this.title.setTitle(seo['siteTitle']);
       this.meta.updateTag({ name: 'description', content: seo['siteDescription'] });

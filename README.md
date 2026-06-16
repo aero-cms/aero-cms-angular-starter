@@ -64,6 +64,10 @@ Schema tanımları: `src/lib/schemas.ts`
 
 URL'de `?cms-preview=true` ile admin panelden canlı önizleme çalışır. `environment.adminOrigin` allowlist olarak kullanılır.
 
+## Çoklu Dil (i18n)
+
+Header'daki dil seçici `aero_lang` çerezini ayarlar ve sayfayı yeniler. CMS istekleri seçilen `lang` ile yapılır.
+
 ## Build ve Docker
 
 ```bash
