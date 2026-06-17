@@ -1,4 +1,4 @@
-import { defineSchema } from '@aero-cms/core';
+import { defineSchema } from '@aero-cms/angular-sdk/schema';
 
 export const heroSchema = defineSchema('hero-section', {
   title: { type: 'text', label: 'Başlık', default: 'AeroCMS' },
