@@ -7,7 +7,8 @@ import { siteSeoSchema } from '../lib/schemas';
 import { AppHeaderComponent } from './components/app-header.component';
 import { AppFooterComponent } from './components/app-footer.component';
 import { PreviewBannerComponent } from './components/preview-banner.component';
-import { CmsPreviewService } from './services/cms-preview.service';
+import { CmsPreviewService } from '@aero-cms/angular-sdk';
+import { environment } from '../environments/environment';
 import { LangService } from './services/lang.service';
 
 @Component({
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   preview = this.previewService;
 
   async ngOnInit() {
-    this.previewService.init();
+    this.previewService.init({ adminOrigin: environment.adminOrigin });
     try {
       const seo = mergeComponentContent(
         siteSeoSchema,

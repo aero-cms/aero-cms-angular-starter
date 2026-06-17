@@ -4,7 +4,7 @@ import { CmsClientService, unwrapCmsData } from '@aero-cms/angular-sdk';
 import type { MenuItemDto } from '@aero-cms/core';
 import { mergeComponentContent } from '../../lib/cms-content';
 import { siteFooterSchema } from '../../lib/schemas';
-import { CmsPreviewService } from '../services/cms-preview.service';
+import { CmsPreviewService } from '@aero-cms/angular-sdk';
 import { LangService } from '../services/lang.service';
 
 @Component({

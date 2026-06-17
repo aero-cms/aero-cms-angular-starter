@@ -5,7 +5,7 @@ import { CmsClientService, unwrapCmsData } from '@aero-cms/angular-sdk';
 import type { EtkinlikDto, HaberDto } from '@aero-cms/core';
 import { mergeComponentContent } from '../../lib/cms-content';
 import { eventsListSchema, heroSchema, newsListSchema } from '../../lib/schemas';
-import { CmsPreviewService } from '../services/cms-preview.service';
+import { CmsPreviewService } from '@aero-cms/angular-sdk';
 import { LangService } from '../services/lang.service';
 
 @Component({

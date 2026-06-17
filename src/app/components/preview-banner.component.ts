@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CmsPreviewService } from '../services/cms-preview.service';
+import { CmsPreviewService } from '@aero-cms/angular-sdk';
 
 @Component({
   selector: 'app-preview-banner',
