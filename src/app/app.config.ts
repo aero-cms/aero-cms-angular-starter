@@ -8,6 +8,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideAeroCms({ baseUrl: environment.cmsApiUrl }),
+    provideAeroCms({
+      baseUrl: environment.cmsApiUrl,
+      ...(environment.siteSlug ? { siteSlug: environment.siteSlug } : {}),
+    }),
   ],
 };

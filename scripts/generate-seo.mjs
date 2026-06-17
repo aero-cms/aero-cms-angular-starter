@@ -21,13 +21,17 @@ function xmlEscape(value) {
 }
 
 async function fetchSitemapEntries() {
+  const siteHeaders = {};
+  const slug = process.env.CMS_SITE_SLUG;
+  if (slug) siteHeaders['X-Site-Slug'] = slug;
+
   const urls = staticPaths.map((path) => ({
     loc: `${siteUrl}${path}`,
     priority: path === '' ? 1 : 0.7,
   }));
 
   try {
-    const res = await fetch(`${apiUrl}/api/v1/content/sitemap`);
+    const res = await fetch(`${apiUrl}/api/v1/content/sitemap`, { headers: siteHeaders });
     if (!res.ok) return urls;
     const json = await res.json();
     const pages = json.data ?? [];
