@@ -5,6 +5,7 @@ Angular 19 starter website for Aero CMS using `@aero-cms/angular-sdk`. Public co
 > **İlk kez mi?** Tüm kurulum adımları:
 > [aero-cms-setup — Başlangıç Rehberi](https://github.com/aero-cms/aero-cms-setup/blob/main/docs/GETTING_STARTED.md)
 > · [Framework seçimi](https://github.com/aero-cms/aero-cms-setup/blob/main/docs/FRAMEWORK_GUIDE.md)
+> · [npm paketleri](https://github.com/aero-cms/aero-cms-setup/blob/main/docs/PACKAGES.md)
 
 ## Gereksinimler
 
@@ -92,3 +93,9 @@ Build argümanları: `CMS_API_URL`, `SITE_URL`, `ADMIN_ORIGIN`
 - [aero-cms-api](https://github.com/aero-cms/aero-cms-api)
 - [@aero-cms/angular-sdk](https://www.npmjs.com/package/@aero-cms/angular-sdk)
 - [aero-cms-setup](https://github.com/aero-cms/aero-cms-setup)
+
+---
+
+**English summary:** Angular 19 starter. Schemas from `@aero-cms/angular-sdk/schema`, sync via
+`@aero-cms/core` CLI. See
+[package & starter map](https://github.com/aero-cms/aero-cms-setup/blob/main/docs/PACKAGES.md#english-summary).
